@@ -3,7 +3,7 @@
     public class PostRequest : BaseEntity
     {
         public PostRequestData Data { get; set; }
-        public string Status { get; set; }
+        public PostRequestStatus Status { get; set; }
         public string? FailureDetails { get; set; }
     }
 
