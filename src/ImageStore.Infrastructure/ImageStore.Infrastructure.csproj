@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImageStore.Application\ImageStore.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Database\Interceptors\" />
+  </ItemGroup>
+
 </Project>
