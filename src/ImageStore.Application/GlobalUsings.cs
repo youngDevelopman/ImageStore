@@ -1,0 +1,1 @@
+﻿global using ImageStore.Application.Posts.Commands.RequestPost;

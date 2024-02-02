@@ -8,11 +8,15 @@ namespace ImageStore.Application.Posts.Commands.RequestPost
     {
         private readonly IImageStorage _imageStorage;
         private readonly IPostRepository _postRepository;
-        public RequestPostCommandHandler(IImageStorage imageStorage, IPostRepository postRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public RequestPostCommandHandler(IImageStorage imageStorage, IPostRepository postRepository, IUnitOfWork unitOfWork)
         {
             _imageStorage = imageStorage;
             _postRepository = postRepository;
+            _unitOfWork = unitOfWork;
+
         }
+
         // TODO: Complete the implementation
         public async Task Handle(RequestPostCommand request, CancellationToken cancellationToken)
         {
@@ -26,7 +30,10 @@ namespace ImageStore.Application.Posts.Commands.RequestPost
                    Caption = request.content,
                }
             };
+
             await _postRepository.AddPostRequestAsync(postRequest, cancellationToken);
+
+            await _unitOfWork.CommitAsync(cancellationToken);
         }
     }
 }
