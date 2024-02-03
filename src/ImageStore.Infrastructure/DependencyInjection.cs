@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ImageStore.Domain.Interfaces;
 using ImageStore.Infrastructure.Database.Repositories;
+using Amazon.S3;
 
 namespace ImageStore.Infrastructure
 {
@@ -17,6 +18,9 @@ namespace ImageStore.Infrastructure
                 //options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                 options.UseSqlServer(connectionString);
             });
+
+            services.AddDefaultAWSOptions(configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPostRepository, PostRepository>();

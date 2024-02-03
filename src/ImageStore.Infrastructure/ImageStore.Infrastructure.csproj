@@ -12,6 +12,8 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"/>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools"/>
+		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup"/>
+		<PackageReference Include="AWSSDK.S3"/>
     </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageStore.Application\ImageStore.Application.csproj" />
