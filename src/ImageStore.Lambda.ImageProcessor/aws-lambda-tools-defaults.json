@@ -1,0 +1,27 @@
+
+{
+    "Information" : [
+        "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
+        "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
+        "dotnet lambda help",
+        "All the command line options for the Lambda command can be specified in this file."
+    ],
+    "profile"     : "ImageStore-User",
+    "region"      : "eu-central-1",
+    "configuration" : "Debug",
+    "function-runtime" : "dotnet6",
+    "function-memory-size" : 512,
+    "function-timeout"     : 15,
+    "function-handler"     : "ImageStore.Lambda.ImageProcessor::ImageStore.Lambda.ImageProcessor.Function::FunctionHandler",
+    "framework"            : "net6.0",
+    "function-name"        : "Process-Original-Image",
+    "function-description" : "",
+    "package-type"         : "Zip",
+    "function-architecture" : "x86_64",
+    "tracing-mode"          : "PassThrough",
+    "environment-variables" : "\"Bucket_Name\"=\"image-store-test-app\";\"Image_Width\"=\"600\";\"Image_Height\"=\"600\";\"Output_Folder\"=\"processed\"",
+    "image-tag"             : "",
+    "function-role"         : "arn:aws:iam::648524383514:role/service-role/SQSProcessor",
+    "function-subnets"      : "",
+    "function-security-groups" : ""
+}
