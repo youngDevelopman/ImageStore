@@ -1,4 +1,4 @@
-using Amazon.S3;
+using ImageStore.API.Configuration;
 using ImageStore.API.Services;
 using ImageStore.Infrastructure;
 using ImageStore.Infrastructure.Configuration;
@@ -18,6 +18,7 @@ namespace ImageStore.API
 
             builder.Services.AddInfrastructureServices(builder.Configuration, awsCredentialsConfuguration);
 
+            builder.Services.Configure<ProcessedImagesQueueConfig>(builder.Configuration.GetRequiredSection("AWS:ProcessedImagesQueue"));
             builder.Services.AddHostedService<SQSProcessedImageProcessor>();
 
             builder.Services.AddControllers();

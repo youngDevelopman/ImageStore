@@ -2,11 +2,13 @@
 using Amazon.S3.Util;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using ImageStore.API.Configuration;
 using ImageStore.API.Exceptions;
 using ImageStore.Application.Exceptions;
 using ImageStore.Application.Posts.Commands.CreatePost;
 using ImageStore.Infrastructure.Configuration;
 using MediatR;
+using Microsoft.Extensions.Options;
 
 namespace ImageStore.API.Services
 {
@@ -15,26 +17,29 @@ namespace ImageStore.API.Services
         private readonly IAmazonSQS _queue;
         private readonly IServiceProvider _services;
         private readonly ILogger<SQSProcessedImageProcessor> _logger;
+        private readonly ProcessedImagesQueueConfig _configuration;
         public SQSProcessedImageProcessor(
             AwsCredentialsConfuguration awsCredentialsConfuguration, 
-            IServiceProvider services, 
+            IServiceProvider services,
+            IOptions<ProcessedImagesQueueConfig> configuration,
             ILogger<SQSProcessedImageProcessor> logger)
         {
             _queue = new AmazonSQSClient(awsCredentialsConfuguration.Credentials, awsCredentialsConfuguration.Region);
             _services = services;
             _logger = logger;
+            _configuration = configuration.Value;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                Console.WriteLine($"getting messages from the queue {DateTime.Now}");
+                _logger.LogInformation($"getting messages from the queue {DateTime.Now}");
                 var request = new ReceiveMessageRequest()
                 {
-                    QueueUrl = "https://sqs.eu-central-1.amazonaws.com/648524383514/ImageStore-ProcessedImages-Queue", //TODO: retrieve from config
-                    MaxNumberOfMessages = 3,
-                    WaitTimeSeconds = 5, // This parameter enables long polling for SQS
+                    QueueUrl = _configuration.SqsUrl,
+                    MaxNumberOfMessages = _configuration.MaxNumberOfMessages,
+                    WaitTimeSeconds = _configuration.WaitTimeSeconds, // This parameter enables long polling for SQS
                 };
 
                 var response = await _queue.ReceiveMessageAsync(request);
@@ -69,14 +74,11 @@ namespace ImageStore.API.Services
                                 var requestId = Guid.Parse(requestIdStr);
 
                                 await mediator.Send(new CreatePostCommand(requestId, imageUrl));
+                                
                             }
-                            Console.WriteLine(message.Body);
-                            if (message.Body.Contains("Exception")) continue;
 
-                            // TODO: Remove message from queue if successfully proccessed
-
-                            await _queue.DeleteMessageAsync(
-                                "https://sqs.eu-central-1.amazonaws.com/648524383514/ImageStore-ProcessedImages-Queue", messageReceipt);
+                            _logger.LogInformation($"Message has been processed {message.Body}");
+                            await _queue.DeleteMessageAsync(_configuration.SqsUrl, messageReceipt);
                         }
                     }
                     catch (RequestIdNotFound ex)
@@ -84,27 +86,23 @@ namespace ImageStore.API.Services
                         /* In this scenario, the request id record of the s3 file which is stored in the metadata has not been found,
                          so we want to put the message into DLQ */
 
-                        // TODO: Put message to DLQ and remove from queue
-                        await _queue.DeleteMessageAsync(
-                            "https://sqs.eu-central-1.amazonaws.com/648524383514/ImageStore-ProcessedImages-Queue", messageReceipt);
+                        // TODO: Put message to DLQ
                         _logger.LogError(ex.Message);
+                        await _queue.DeleteMessageAsync(_configuration.SqsUrl, messageReceipt);
                     }
                     catch(Exception ex) when (ex is PostAlreadyExists or PostRequestNotFound)
                     {
                         /*
-                         In this scenario we likely got duplicate messages in the queue, for example due to network partitioning, so we simply want to  
+                         In this scenario we likely got duplicate messages in the queue, for example due to network partitioning, 
+                            so we simply want to remove the duplicate messages from the queue 
                          */
                         _logger.LogError(ex.Message);
-                        // TODO: Move message to DLQ
-
-                        await _queue.DeleteMessageAsync(
-                            "https://sqs.eu-central-1.amazonaws.com/648524383514/ImageStore-ProcessedImages-Queue", messageReceipt);
+                        await _queue.DeleteMessageAsync(_configuration.SqsUrl, messageReceipt);
                     }
                     catch (Exception ex)
                     {
                         _logger.LogError($" Unknown error {ex.Message}");
                     }
-
                 }
             }
         }
