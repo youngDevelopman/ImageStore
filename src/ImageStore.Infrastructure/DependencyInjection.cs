@@ -20,6 +20,13 @@ namespace ImageStore.Infrastructure
                 options.UseSqlServer(connectionString);
             });
 
+            services.Configure<S3Configuration>(x =>
+            {
+                var section = configuration.GetRequiredSection("AWS:S3Images");
+                x.Bucket = section.GetRequiredSection(nameof(S3Configuration.Bucket)).Value;
+                x.OriginalImageFolder = section.GetRequiredSection(nameof(S3Configuration.OriginalImageFolder)).Value;
+            });
+
             //services.AddDefaultAWSOptions(configuration.GetAWSOptions()); Convenient, but performs badly :(
 
             services.AddScoped<IAmazonS3>(x => 
