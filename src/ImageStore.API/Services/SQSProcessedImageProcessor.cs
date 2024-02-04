@@ -3,6 +3,7 @@ using Amazon.S3.Util;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using ImageStore.API.Exceptions;
+using ImageStore.Application.Exceptions;
 using ImageStore.Application.Posts.Commands.CreatePost;
 using ImageStore.Infrastructure.Configuration;
 using MediatR;
@@ -39,6 +40,7 @@ namespace ImageStore.API.Services
                 var response = await _queue.ReceiveMessageAsync(request);
                 if (response.Messages.Any()) // Posibility of getting 0 messages
                 {
+                    string messageReceipt = default(string);
                     try
                     {
                         using var scope = _services.CreateScope();
@@ -46,6 +48,7 @@ namespace ImageStore.API.Services
                         var s3Client = scope.ServiceProvider.GetRequiredService<IAmazonS3>();
                         foreach (var message in response.Messages)
                         {
+                            messageReceipt = message.ReceiptHandle;
                             var s3Event = S3EventNotification.ParseJson(message.Body);
                             var records = s3Event.Records;
                             foreach (var record in records)
@@ -70,14 +73,32 @@ namespace ImageStore.API.Services
                             Console.WriteLine(message.Body);
                             if (message.Body.Contains("Exception")) continue;
 
-                            //await _queue.DeleteMessageAsync(
-                            //"https://sqs.eu-central-1.amazonaws.com/648524383514/ImageStore-ProcessedImages-Queue", message.ReceiptHandle);
+                            // TODO: Remove message from queue if successfully proccessed
+
+                            await _queue.DeleteMessageAsync(
+                                "https://sqs.eu-central-1.amazonaws.com/648524383514/ImageStore-ProcessedImages-Queue", messageReceipt);
                         }
                     }
                     catch (RequestIdNotFound ex)
                     {
+                        /* In this scenario, the request id record of the s3 file which is stored in the metadata has not been found,
+                         so we want to put the message into DLQ */
+
                         // TODO: Put message to DLQ and remove from queue
+                        await _queue.DeleteMessageAsync(
+                            "https://sqs.eu-central-1.amazonaws.com/648524383514/ImageStore-ProcessedImages-Queue", messageReceipt);
                         _logger.LogError(ex.Message);
+                    }
+                    catch(Exception ex) when (ex is PostAlreadyExists or PostRequestNotFound)
+                    {
+                        /*
+                         In this scenario we likely got duplicate messages in the queue, for example due to network partitioning, so we simply want to  
+                         */
+                        _logger.LogError(ex.Message);
+                        // TODO: Move message to DLQ
+
+                        await _queue.DeleteMessageAsync(
+                            "https://sqs.eu-central-1.amazonaws.com/648524383514/ImageStore-ProcessedImages-Queue", messageReceipt);
                     }
                     catch (Exception ex)
                     {
