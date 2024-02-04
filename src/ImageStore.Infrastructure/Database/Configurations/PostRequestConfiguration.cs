@@ -8,6 +8,12 @@ namespace ImageStore.Infrastructure.Database.Configurations
     {
         public void Configure(EntityTypeBuilder<PostRequest> builder)
         {
+            builder
+                .HasOne<Post>()
+                .WithMany()
+                .HasForeignKey(x => x.PostId)
+                .IsRequired(false);
+
             builder.OwnsOne(x => x.Data, ownedNavigationBuilder =>
             {
                 ownedNavigationBuilder.ToJson();
