@@ -1,5 +1,6 @@
 ﻿using ImageStore.Domain.Interfaces;
-
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 namespace ImageStore.Infrastructure.Database
 {
     public class UnitOfWork : IUnitOfWork
@@ -15,6 +16,11 @@ namespace ImageStore.Infrastructure.Database
         public async Task<int> CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await _context.Database.BeginTransactionAsync();
         }
     }
 }

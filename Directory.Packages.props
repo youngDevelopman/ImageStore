@@ -13,9 +13,11 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1" />
+	 
     <!-- AWS -->
     <PackageVersion Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.300" />
     <PackageVersion Include="AWSSDK.S3" Version="3.7.305.22" />
+	<PackageVersion Include="AWSSDK.SQS" Version="3.7.300.46" />
     <PackageVersion Include="Amazon.Lambda.Core" Version="2.2.0" />
     <PackageVersion Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.4.0" />
     <PackageVersion Include="Amazon.Lambda.S3Events" Version="3.1.0" />

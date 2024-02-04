@@ -20,7 +20,8 @@ namespace ImageStore.API.Controllers
         public async Task<IActionResult> AddPostRequest([FromForm] PostRequest request, CancellationToken cancellationToken)
         {
             using Stream imageFileStream = request.Image.OpenReadStream();
-            var result = await _mediator.Send(new RequestPostCommand(Guid.NewGuid(), request.Content, imageFileStream));
+            string fileExtension = Path.GetExtension(request.Image.FileName);
+            var result = await _mediator.Send(new RequestPostCommand(Guid.NewGuid(), request.Content, imageFileStream, fileExtension));
 
             return CreatedAtAction(nameof(AddPostRequest), result);
         }

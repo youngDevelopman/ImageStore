@@ -66,6 +66,7 @@ public class Function
                 Key = processedFilePath,
                 InputStream = resizedImageStream,
             };
+            putObjectRequest.Metadata.Add("post-request-id", response.Metadata["post-request-id"]);
 
             await S3Client.PutObjectAsync(putObjectRequest);
         }
