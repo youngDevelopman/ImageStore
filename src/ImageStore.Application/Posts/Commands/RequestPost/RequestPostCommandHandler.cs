@@ -41,7 +41,7 @@ namespace ImageStore.Application.Posts.Commands.RequestPost
 
             await _imageStorage.UploadFileAsync(request.File, fileName, metadata, cancellationToken);
 
-            await _unitOfWork.CommitAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return new RequestPostResultDto(postRequest.Id);
         }

@@ -13,7 +13,7 @@ namespace ImageStore.Infrastructure.Database
             _context = context;
         }
 
-        public async Task<int> CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             return await _context.SaveChangesAsync(cancellationToken);
         }

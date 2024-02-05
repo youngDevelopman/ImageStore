@@ -43,7 +43,7 @@ namespace ImageStore.Application.Posts.Commands.CreatePost
                 await _postRepository.AddPostAsync(post, cancellationToken);
                 postRequest.Status = PostRequestStatus.PostCreated;
 
-                await _unitOfWork.CommitAsync();
+                await _unitOfWork.SaveChangesAsync();
 
                 await transaction.CommitAsync();
             }

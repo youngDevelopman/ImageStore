@@ -22,6 +22,11 @@ namespace ImageStore.Infrastructure.Database.Repositories
            await _context.PostRequests.AddAsync(postRequest, cancellationToken);
         }
 
+        public async Task<Post> GetPostByIdAsync(Guid postId, CancellationToken cancellationToken)
+        {
+            return await _context.Posts.FirstOrDefaultAsync(x => x.Id == postId, cancellationToken);
+        }
+
         public async Task<PostRequest> GetPostRequestByIdAsync(Guid postRequestId, CancellationToken cancellationToken)
         {
             return await _context.PostRequests.FirstOrDefaultAsync(x => x.Id == postRequestId, cancellationToken);
