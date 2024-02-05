@@ -10,6 +10,7 @@ namespace ImageStore.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //builder.Services.AddTransient<ExceptionHandlingMiddleware>();
             // Add services to the container.
             builder.Services.AddApplicationDependencies();
 
@@ -28,6 +29,7 @@ namespace ImageStore.API
 
             var app = builder.Build();
 
+            app.UseMiddleware<ExceptionMiddleware>();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
