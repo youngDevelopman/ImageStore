@@ -12,6 +12,7 @@ namespace ImageStore.Infrastructure.Database.Configurations
                 .HasOne(x => x.User)
                 .WithMany()
                 .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
 
             builder
