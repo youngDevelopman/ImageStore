@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ImageStore.Application\ImageStore.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Database\Interceptors\" />
-  </ItemGroup>
-
 </Project>

@@ -7,7 +7,7 @@ namespace ImageStore.Application.Posts.Commands.RequestPost
         public RequestPostCommandValidator()
         {
             var allowedFormats = new[] { ".jpg", "png", "bmp" };
-            long allowedFileLength = 10; //104857600;
+            long allowedFileLength = 104857600; // 100 MB
 
             RuleFor(x => x.fileExtension)
                 .Must(fileExtension => allowedFormats.Contains(fileExtension))
