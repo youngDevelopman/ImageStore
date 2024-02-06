@@ -12,7 +12,13 @@ namespace ImageStore.Infrastructure.Database.Configurations
                 .HasOne<Post>()
                 .WithMany()
                 .HasForeignKey(x => x.PostId)
-                .IsRequired(false);
+                .IsRequired(false); // It it not required becuase we do not know post id in advance
+
+            builder
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .IsRequired(true);
 
             builder.OwnsOne(x => x.Data, ownedNavigationBuilder =>
             {

@@ -4,6 +4,7 @@ using ImageStore.Application.Posts.Commands.RequestPost;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ImageStore.API.Controllers
 {
@@ -23,9 +24,15 @@ namespace ImageStore.API.Controllers
         [RequestSizeLimit(10906176)] // Set 101 MB, so we can have some space for Content field
         public async Task<IActionResult> AddPostRequest([FromForm] PostRequest request, CancellationToken cancellationToken)
         {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if(userId == null)
+            {
+                return BadRequest("User Id is missing");
+            }
+
             using Stream imageFileStream = request.Image.OpenReadStream();
             string fileExtension = Path.GetExtension(request.Image.FileName);
-            var result = await _mediator.Send(new RequestPostCommand(Guid.NewGuid(), request.Content, imageFileStream, fileExtension));
+            var result = await _mediator.Send(new RequestPostCommand(Guid.Parse(userId), request.Content, imageFileStream, fileExtension));
 
             return CreatedAtAction(nameof(AddPostRequest), result);
         }
@@ -33,7 +40,13 @@ namespace ImageStore.API.Controllers
         [HttpPost("{postId:Guid}/comments")]
         public async Task<IActionResult> AddCommentForPost(Guid postId, AddCommentRequest request, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddCommentCommand(postId, request.Content, Guid.NewGuid().ToString()));
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if(userId == null)
+            {
+                return BadRequest("User Id is missing");
+            }
+
+            var result = await _mediator.Send(new AddCommentCommand(postId, Guid.Parse(userId), request.Content));
 
             return CreatedAtAction(nameof(AddPostRequest), result);
         }

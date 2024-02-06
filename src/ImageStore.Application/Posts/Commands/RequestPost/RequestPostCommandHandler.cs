@@ -24,6 +24,7 @@ namespace ImageStore.Application.Posts.Commands.RequestPost
             // TODO: Add other fields
             var postRequest = new PostRequest()
             {
+                UserId = request.UserId,
                 Data = new PostRequestData()
                 {
                     Caption = request.Content,

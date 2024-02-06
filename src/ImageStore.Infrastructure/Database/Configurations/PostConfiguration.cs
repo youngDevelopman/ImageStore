@@ -9,6 +9,12 @@ namespace ImageStore.Infrastructure.Database.Configurations
         public void Configure(EntityTypeBuilder<Post> builder)
         {
             builder
+                .HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .IsRequired(true);
+
+            builder
                 .Property(p => p.Version)
                 .IsRowVersion();
 

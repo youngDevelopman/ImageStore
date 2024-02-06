@@ -38,7 +38,7 @@ namespace ImageStore.Application.Comments.Commands.AddComment
                     {
                         Content = request.Content,
                         PostId = request.PostId,
-                        User = request.UserId,
+                        UserId = request.UserId,
                     };
 
                     // TODO: Consider creating AddComment method for Post model
