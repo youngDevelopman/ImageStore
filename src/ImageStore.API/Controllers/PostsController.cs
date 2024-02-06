@@ -2,12 +2,14 @@
 using ImageStore.Application.Comments.Commands.AddComment;
 using ImageStore.Application.Posts.Commands.RequestPost;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImageStore.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class PostsController : ControllerBase
     {
         private readonly IMediator _mediator;
