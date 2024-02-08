@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using ImageStore.Application.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 public class ExceptionMiddleware
@@ -16,7 +16,15 @@ public class ExceptionMiddleware
         _exceptionHandlers = new()
             {
                 { typeof(ValidationException), HandleValidationException },
-                { typeof(Exception), HandleExceptionAsync },
+
+                // All application level exceptions are handled by one method, but you can easily create your own handler for each type
+                { typeof(CommentNotFoundException), HandleApplicationLevelException },
+                { typeof(InvalidPasswordException), HandleApplicationLevelException },
+                { typeof(PostAlreadyExistsException), HandleApplicationLevelException },
+                { typeof(PostNotFoundException), HandleApplicationLevelException },
+                { typeof(PostRequestNotFoundException), HandleApplicationLevelException },
+                { typeof(UserAlreadyExistsException), HandleApplicationLevelException },
+                { typeof(UserNotFoundException), HandleApplicationLevelException },
             };
     }
 
@@ -37,6 +45,10 @@ public class ExceptionMiddleware
             {
                 await _exceptionHandlers[exceptionType].Invoke(httpContext, ex);
             }
+            else
+            {
+                await HandleExceptionAsync(httpContext, ex);
+            }
         }
     }
 
@@ -45,11 +57,12 @@ public class ExceptionMiddleware
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-        await context.Response.WriteAsync(new ProblemDetails()
+        await context.Response.WriteAsJsonAsync(new ProblemDetails()
         {
             Status = context.Response.StatusCode,
+            Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
             Detail = "Internal Server Error."
-        }.ToString());
+        });
     }
 
     private async Task HandleValidationException(HttpContext httpContext, Exception ex)
@@ -62,6 +75,18 @@ public class ExceptionMiddleware
         {
             Status = StatusCodes.Status400BadRequest,
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+        });
+    }
+
+    private async Task HandleApplicationLevelException(HttpContext httpContext, Exception ex)
+    {
+        httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails()
+        {
+            Status = StatusCodes.Status400BadRequest,
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            Detail = ex.Message,
         });
     }
 }

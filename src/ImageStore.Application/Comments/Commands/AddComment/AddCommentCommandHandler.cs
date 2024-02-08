@@ -32,7 +32,7 @@ namespace ImageStore.Application.Comments.Commands.AddComment
                     var post = await _postRepository.GetPostByIdAsync(request.PostId, cancellationToken);
                     if (post == null)
                     {
-                        throw new PostNotFound();
+                        throw new PostNotFoundException();
                     }
 
                     var comment = new Comment()
