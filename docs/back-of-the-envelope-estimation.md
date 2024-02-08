@@ -48,22 +48,50 @@ Note that the actual size can vary slightly due to database management system ov
 | Column | Size |
 |--------|--------|
 |Id (uniqueidentifier)| 16 bytes|
-|Caption (nvarchar(100))| This is variable up to 200 characters (100 Unicode characters). Since nvarchar uses 2 bytes per character, the maximum is 200 bytes + 2 bytes for the length indicator, but if null, it could be less.
-Image (nvarchar(max)): : Assuming an average URL length of 100 characters, it would be 200 bytes + 2 bytes for the length indicator.
-CreatedAt (datetime2(7)): 8 bytes
-UpdatedAt (datetime2(7)): 8 bytes
-CommentsCount (int): 4 bytes
-Version (timestamp): The timestamp data type is a synonym for rowversion, which is automatically generated and unique within the database. It is 8 bytes.
-UserId (uniqueidentifier): 16 bytes
-Result:  464 bytes bytes per item
+|Caption (nvarchar(100))| This is variable up to 200 characters (100 Unicode characters). Since nvarchar uses 2 bytes per character, the maximum is 200 bytes + 2 bytes for the length indicator, but if null, it could be less.|
+|Image (nvarchar(max))| Assuming an average URL length of 100 characters, it would be 200 bytes + 2 bytes for the length indicator|
+|CreatedAt (datetime2(7))| 8 bytes|
+|UpdatedAt (datetime2(7))| 8 bytes |
+|CommentsCount (int) | 4 bytes|
+| Version (timestamp) | The timestamp data type is a synonym for rowversion, which is automatically generated and unique within the database. It is 8 bytes|
+|UserId (uniqueidentifier)| 16 bytes|
 
-Let's assume that the avarage original size image being uploaded to out system is 3MB and processed is 1/3 of the original which is 1 MB.
+**Result:  464 bytes bytes per item**
 
-Coming all together
-Database combined size for one record = 2272 + 464 = 2736 bytes;
-Size of the orginal and processed images = 3 mb + 1mb = 4mb
+#### Image size
 
-Knowing all of that, let's calculate load per day
-Database load for post creation = 172 800 * 2736 = 472 780 800 bytes per day(~473 MB);
-S3 load for post creation = 172 800 * 4mb = 691 200 mb per day(~692 GB);
+Let's assume that the average original size image being uploaded to our system is 3MB and the processed image is 1/3 of the original size which is 1 MB.
 
+#### Putting all together
+
+-Database combined size for one post record = 2272 + 464 = 2736 bytes;
+-Size of the orginal and processed images = 3 mb + 1mb = 4mb
+
+**Knowing all of that, let's calculate the load per day for post-related data**
+
+- Database load for post creation = 172 800 * 2736 = 472 780 800 bytes per day(~473 MB);
+- S3 load for post creation = 172 800 * 4mb = 691 200 mb per day(~692 GB);
+
+
+### Comments-related data
+| Column | Size |
+|--------|--------|
+|Id (uniqueidentifier)| 16 bytes|
+|PostId (uniqueidentifier)| 16 bytes|
+|Content (nvarchar(100))| This column can store up to 100 Unicode characters. Since nvarchar uses 2 bytes per character, this means a maximum of 200 bytes + 2 bytes for the length indicator.|
+|CreatedAt (datetime2(7))| 8 bytes|
+|UpdatedAt (datetime2(7))| 8 bytes|
+|UserId (uniqueidentifier)| 16 bytes|
+
+Result: 266 bytes per record
+
+Let's calculate the daily size of the comments stored in db:
+- 688 000 * 266 = 183 008 000 bytes per day for storing user comments(~183 MB per day);
+
+## Annual data size estimation
+- ~8 760 000 uploaded images per year
+- ~87 600 000 uploaded comments per year
+- ~172 GB in SQL Database and 272 TB for S3 for image uploading per year
+- ~67 GB in SQL Database for storing the comments per year
+
+*Note, that this statistic is approximate. It does not assume the number of people who joined our system, or who have been inactive for quite some time, or daily spikes of the data known as celebrity problem.*
