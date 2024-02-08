@@ -38,7 +38,7 @@ namespace ImageStore.Infrastructure.Database.Repositories
                 .IncludeComments()
                 .Build();
 
-            var result = await query.ToListAsync();
+            var result = await query.ToListAsync(cancellationToken);
 
             if(paginationStrategy == PaginationStrategy.PreviousPage)
             {
