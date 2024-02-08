@@ -24,7 +24,8 @@ namespace ImageStore.Application.Comments.Commands.AddComment
             Guid commentId = default;
             var saved = false;
             int maxAttempts = 5;
-            while (!saved)
+            int attemps = 0;
+            while (!saved && maxAttempts > attemps)
             {
                 try
                 {
@@ -77,6 +78,13 @@ namespace ImageStore.Application.Comments.Commands.AddComment
                         }
                     }
                 }
+
+                attemps++;
+            }
+
+            if(!saved)
+            {
+                throw new InvalidOperationException($"Error while adding the comment. Try again");
             }
 
             return new AddedCommentResultDto(commentId, request.Content);
