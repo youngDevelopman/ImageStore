@@ -1,6 +1,7 @@
 ﻿using ImageStore.API.Models;
 using ImageStore.Application.Comments.Commands.AddComment;
 using ImageStore.Application.Posts.Commands.RequestPost;
+using ImageStore.Application.Posts.Queries.GetPaginatedPosts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,15 @@ namespace ImageStore.API.Controllers
         public PostsController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetPostsPaginated([FromQuery] GetPostsPaginatedRequest request, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetPaginatedPostsQuery(request.PageSize, request.Next, request.Previous), cancellationToken);
+
+            return Ok(result);
         }
 
         [HttpPost]
