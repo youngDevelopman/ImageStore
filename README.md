@@ -53,7 +53,7 @@ GET api/posts?pageSize=10
 }
 
 # Get the next set post by providing 'end' cursor of the last request 
-GET api/posts?pageSize=10&next=YmZkYTBkNzctMzExNC00MjA2LTBlODEtMDhkYzI4NDVlZjE2XzRfMi84LzIwMjQgMTozNTo0NyBBTQ==
+GET api/posts?pageSize=10&next=EYfgvmnwEUWI...
 {
     "start": "GkDFlkfetrR...",
     "end": "EYfgvmnwEUWI...",
@@ -61,7 +61,7 @@ GET api/posts?pageSize=10&next=YmZkYTBkNzctMzExNC00MjA2LTBlODEtMDhkYzI4NDVlZjE2X
 }
 
 # Get the previous post by providing 'start' cursor of the last request
-GET api/posts?pageSize=10&previous=GkDFlkfetrR
+GET api/posts?pageSize=10&previous=GkDFlkfetrR...
 {
     ...
 }
