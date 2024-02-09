@@ -9,7 +9,8 @@ Based on these requirements, the conventional approach of running aggregate func
 
 Thus, it was decided to store a number of comments in the *Post* table.
 
-![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/15256165-35e7-48f8-9cd3-54bfc6889666)
+![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/51f1dd51-6877-4775-8fda-1f23de6b7b5a)
+
 
 
 ## Lost update
