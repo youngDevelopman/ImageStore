@@ -17,7 +17,6 @@ namespace ImageStore.Application.Posts.Commands.CreatePost
         {
             await using var transaction = await _unitOfWork.BeginTransactionAsync();
 
-            // TODO: Move whole logic to repository method??
             try
             {
                 var postRequest = await _postRepository.GetPostRequestByIdAsync(request.requestId, cancellationToken);
@@ -41,13 +40,12 @@ namespace ImageStore.Application.Posts.Commands.CreatePost
                 postRequest.Status = PostRequestStatus.PostCreated;
                 postRequest.PostId = post.Id;
 
-                await _unitOfWork.SaveChangesAsync();
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                await transaction.CommitAsync();
+                await transaction.CommitAsync(cancellationToken);
             }
             catch(Exception ex)
             {
-                //TODO: Log the exception
                 await transaction.RollbackAsync();
                 throw;
             }

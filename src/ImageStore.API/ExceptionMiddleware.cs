@@ -38,7 +38,6 @@ public class ExceptionMiddleware
         {
             _logger.LogError($"Something went wrong: {ex}");
 
-            //TODO: Handle all exceptions
             var exceptionType = ex.GetType();
 
             if (_exceptionHandlers.ContainsKey(exceptionType))
