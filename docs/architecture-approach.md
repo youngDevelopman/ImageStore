@@ -22,7 +22,7 @@ There are generally two ways of implementing the system requirements that are gi
 **Cons**
 - The whole post creation process might take a long time and considering the poor user connection it might result in a bad user experience.
 
-## Asynchronous approach (Implement approach)
+## Asynchronous approach (Implemented approach)
 
 The following architecture facilitates the asynchronous appoach of image processing by using REST API(ASP.NET Core), Message Brokers(SQS), Remote FileStorage(S3), Serverless Computing(Lambda) and Relational Database(MS SQL)
 
