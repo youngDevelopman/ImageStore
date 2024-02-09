@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace ImageStore.Application.Users.Commands.RegisterUser
+﻿namespace ImageStore.Application.Users.Commands.RegisterUser
 {
     public class RegisterUserCommandValidator: AbstractValidator<RegisterUserCommand>
     {

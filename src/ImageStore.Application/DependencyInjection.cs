@@ -1,8 +1,6 @@
 ﻿using ImageStore.Application.Behaviours;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using FluentValidation;
 using ImageStore.Application.Configuration;
 using Microsoft.Extensions.Configuration;
 

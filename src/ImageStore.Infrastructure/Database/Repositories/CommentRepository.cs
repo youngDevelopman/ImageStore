@@ -1,9 +1,4 @@
-﻿using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.Design;
-
-namespace ImageStore.Infrastructure.Database.Repositories
+﻿namespace ImageStore.Infrastructure.Database.Repositories
 {
     public class CommentRepository : ICommentRepository
     {

@@ -1,6 +1,4 @@
-﻿using ImageStore.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ImageStore.Infrastructure.Database.Configurations
 {

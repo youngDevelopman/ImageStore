@@ -1,6 +1,4 @@
-﻿using ImageStore.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore.Storage;
 namespace ImageStore.Infrastructure.Database
 {
     public class UnitOfWork : IUnitOfWork

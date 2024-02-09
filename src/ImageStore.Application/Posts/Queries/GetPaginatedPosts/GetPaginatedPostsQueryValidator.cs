@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
+﻿namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
 {
     public class GetPaginatedPostsQueryValidator : AbstractValidator<GetPaginatedPostsQuery>
     {

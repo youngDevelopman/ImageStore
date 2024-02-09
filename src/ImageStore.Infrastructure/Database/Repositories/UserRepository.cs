@@ -1,8 +1,4 @@
-﻿using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
-namespace ImageStore.Infrastructure.Database.Repositories
+﻿namespace ImageStore.Infrastructure.Database.Repositories
 {
     public class UserRepository : IUserRepository
     {

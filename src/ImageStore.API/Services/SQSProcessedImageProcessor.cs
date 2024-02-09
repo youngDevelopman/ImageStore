@@ -7,7 +7,6 @@ using ImageStore.API.Exceptions;
 using ImageStore.Application.Exceptions;
 using ImageStore.Application.Posts.Commands.CreatePost;
 using ImageStore.Infrastructure.Configuration;
-using MediatR;
 using Microsoft.Extensions.Options;
 
 namespace ImageStore.API.Services
