@@ -83,7 +83,7 @@ Let's assume that the average original size image being uploaded to our system i
 |UpdatedAt (datetime2(7))| 8 bytes|
 |UserId (uniqueidentifier)| 16 bytes|
 
-Result: 266 bytes per record
+**Result: 266 bytes per record**
 
 Let's calculate the daily size of the comments stored in db:
 - 688 000 * 266 = 183 008 000 bytes per day for storing user comments(~183 MB per day);
