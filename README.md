@@ -12,6 +12,7 @@ BandLab test challendge
 - [Back-of-the-envelope estimation](https://github.com/youngDevelopman/ImageStore/blob/master/docs/back-of-the-envelope-estimation.md)
 - [Architecture approach](https://github.com/youngDevelopman/ImageStore/blob/master/docs/architecture-approach.md)
 - [Updating comment count](https://github.com/youngDevelopman/ImageStore/blob/master/docs/updating-comments-count.md)
+- [What needs to be implemented](https://github.com/youngDevelopman/ImageStore/blob/master/docs/what-needs-to-be-implemented.md)
 
 ## API 
 
