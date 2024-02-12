@@ -7,6 +7,8 @@ namespace ImageStore.Application.Comments.Commands.DeleteComment
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICommentRepository _commentRepository;
+
+        private const int MAX_REMOVE_COMMENT_ATTEMPS = 5;
         public DeleteCommentCommandHandler(IUnitOfWork unitOfWork, IUserRepository userRepository, ICommentRepository commentRepository)
         {
             _unitOfWork = unitOfWork;
@@ -32,9 +34,8 @@ namespace ImageStore.Application.Comments.Commands.DeleteComment
             }
 
             var saved = false;
-            int maxAttempts = 5;
             int attemps = 0;
-            while (!saved && maxAttempts > attemps)
+            while (!saved && MAX_REMOVE_COMMENT_ATTEMPS > attemps)
             {
                 try
                 {
@@ -74,6 +75,7 @@ namespace ImageStore.Application.Comments.Commands.DeleteComment
                         }
                     }
                 }
+                attemps++;
             }
 
             if (!saved)

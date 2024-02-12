@@ -16,7 +16,7 @@ namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
 
             var posts = await _postRepository.GetCursorPaginatedPostsAsync(cursor, paginationStrategy, request.PageSize, cancellationToken);
 
-            (PostCursor? start, PostCursor? end) = GetCursors(posts);
+            (PostCursor? start, PostCursor? end) = GeneratePostCursors(posts);
 
             var result = new CursorPaginatedResult<PostDto>()
             {
@@ -48,10 +48,10 @@ namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
             return result;
         }
 
-        private (PostCursor? start, PostCursor? end) GetCursors(List<Post> posts)
+        private (PostCursor? start, PostCursor? end) GeneratePostCursors(List<Post> posts)
         {
-            PostCursor start = default;
-            PostCursor end = default;
+            PostCursor? start = default;
+            PostCursor? end = default;
 
             var first = posts.FirstOrDefault();
             if (first != null)
@@ -68,6 +68,9 @@ namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
             return (start, end);
         }
 
+
+        // TODO: Consider moving this code to the PostPaginationQueryBuilder,
+        // so it would be solely its responsibility to define which pagination strategy to pick
         private (PostCursor? cursor, PaginationStrategy paginationStrategy) ParseCursorEncodedData(GetPaginatedPostsQuery request)
         {
             if(!string.IsNullOrEmpty(request.Next) && !string.IsNullOrEmpty(request.Previous))

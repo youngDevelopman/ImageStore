@@ -8,6 +8,9 @@ namespace ImageStore.Application.Comments.Commands.AddComment
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICommentRepository _commentRepository;
         private readonly IPostRepository _postRepository;
+
+        private const int MAX_ADD_COMMENT_ATTEMPS = 5;
+
         public AddCommentCommandHandler(IUnitOfWork unitOfWork, ICommentRepository commentRepository, IPostRepository postRepository)
         {
             _unitOfWork = unitOfWork;
@@ -19,9 +22,8 @@ namespace ImageStore.Application.Comments.Commands.AddComment
         {
             Guid commentId = default;
             var saved = false;
-            int maxAttempts = 5;
             int attemps = 0;
-            while (!saved && maxAttempts > attemps)
+            while (!saved && MAX_ADD_COMMENT_ATTEMPS > attemps)
             {
                 try
                 {
