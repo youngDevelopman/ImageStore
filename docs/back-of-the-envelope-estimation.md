@@ -64,8 +64,8 @@ Let's assume that the average original size image being uploaded to our system i
 
 #### Putting all together
 
--Database combined size for one post record = 2272 + 464 = 2736 bytes;
--Size of the orginal and processed images = 3 mb + 1mb = 4mb
+- Database combined size for one post record = 2272 + 464 = 2736 bytes;
+- Size of the orginal and processed images = 3 mb + 1mb = 4mb
 
 **Knowing all of that, let's calculate the load per day for post-related data**
 
