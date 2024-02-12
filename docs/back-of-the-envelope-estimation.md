@@ -89,8 +89,8 @@ Let's calculate the daily size of the comments stored in db:
 - 688 000 * 266 = 183 008 000 bytes per day for storing user comments(~183 MB per day);
 
 ## Annual data size estimation
-- ~8 760 000 uploaded images per year
-- ~87 600 000 uploaded comments per year
+- ~63 072 000 uploaded images per year
+- ~251 120 000 uploaded comments per year
 - ~172 GB in SQL Database and 272 TB for S3 for image uploading per year
 - ~67 GB in SQL Database for storing the comments per year
 
