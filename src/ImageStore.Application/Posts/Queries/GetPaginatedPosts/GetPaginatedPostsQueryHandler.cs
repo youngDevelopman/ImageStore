@@ -26,6 +26,7 @@ namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
                 {
                     return new PostDto()
                     {
+                        Id = x.Id,
                         Caption = x.Caption,
                         CommentsCount = x.CommentsCount,
                         CreatedAt = x.CreatedAt,
@@ -80,12 +81,12 @@ namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
 
             if (!string.IsNullOrEmpty(request.Next))
             {
-                return (PostCursor.CreateFromBase64UrlEncoded(request.Next), PaginationStrategy.NextPage);
+                return (PostCursor.CreateFromBase64String(request.Next), PaginationStrategy.NextPage);
             }
 
             if (!string.IsNullOrEmpty(request.Previous))
             {
-                return (PostCursor.CreateFromBase64UrlEncoded(request.Previous), PaginationStrategy.PreviousPage);
+                return (PostCursor.CreateFromBase64String(request.Previous), PaginationStrategy.PreviousPage);
             }
 
             return (null, PaginationStrategy.FirstPage);
