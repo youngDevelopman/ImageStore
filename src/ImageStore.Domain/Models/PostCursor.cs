@@ -22,7 +22,7 @@ namespace ImageStore.Domain.Models
             CommentCount = commentCount;
         }
 
-        public static PostCursor CreateFromBase64UrlEncoded(string encoded)
+        public static PostCursor CreateFromBase64String(string encoded)
         {
             if(string.IsNullOrEmpty(encoded))
             {
