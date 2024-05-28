@@ -180,7 +180,7 @@ namespace ImageStore.Infrastructure.Database.Migrations
                     b.HasOne("ImageStore.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
