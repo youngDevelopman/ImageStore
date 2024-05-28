@@ -36,12 +36,13 @@ namespace ImageStore.Application.Posts.Commands.CreatePost
                 var post = new Post()
                 {
                     Caption = postRequest.Data.Caption,
-                    Creator = postRequest.Data.Creator,
+                    UserId = postRequest.UserId,
                     Image = request.ImagePath.ToString(),
                 };
 
                 await _postRepository.AddPostAsync(post, cancellationToken);
                 postRequest.Status = PostRequestStatus.PostCreated;
+                postRequest.PostId = post.Id;
 
                 await _unitOfWork.SaveChangesAsync();
 
@@ -53,7 +54,6 @@ namespace ImageStore.Application.Posts.Commands.CreatePost
                 await transaction.RollbackAsync();
                 throw;
             }
-            Console.WriteLine("CreatePostCommandHandler");
         }
     }
 }

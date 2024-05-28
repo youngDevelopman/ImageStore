@@ -3,6 +3,7 @@
     public class PostRequest : BaseEntity
     {
         public Guid? PostId { get; set; }
+        public Guid UserId { get; set; }
         public PostRequestData Data { get; set; }
         public PostRequestStatus Status { get; set; }
         public string? FailureDetails { get; set; }
