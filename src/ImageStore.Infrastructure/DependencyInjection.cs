@@ -5,6 +5,8 @@ using ImageStore.Domain.Interfaces;
 using ImageStore.Infrastructure.Database.Repositories;
 using Amazon.S3;
 using ImageStore.Infrastructure.Configuration;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using ImageStore.Infrastructure.Database.Interceptors;
 
 namespace ImageStore.Infrastructure
 {
@@ -13,10 +15,11 @@ namespace ImageStore.Infrastructure
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration, AwsCredentialsConfuguration awsCredentialsConfuguration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
+            services.AddScoped<ISaveChangesInterceptor, UpdateTimestampsInterceptor>();
             services.AddDbContext<ApplicationDbContext>((sp, options) =>
             {
                 // TODO: Use interceptor to save createdat and updatedat fields
-                //options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+                options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                 options.UseSqlServer(connectionString);
             });
 
