@@ -46,13 +46,25 @@ POST api/posts
 
 # Get the first set post 
 GET api/posts?pageSize=10
+{
+    "start": "GkDFlkfetrR",
+    "end": "EYfgvmnwEUWI...",
+    "items": [...]
+}
 
-# Get the next set post 
-GET api/posts?pageSize=10&next=base64String
+# Get the next set post by providing 'end' cursor of the last request 
+GET api/posts?pageSize=10&next=YmZkYTBkNzctMzExNC00MjA2LTBlODEtMDhkYzI4NDVlZjE2XzRfMi84LzIwMjQgMTozNTo0NyBBTQ==
+{
+    "start": "GkDFlkfetrR...",
+    "end": "EYfgvmnwEUWI...",
+    "items": [...]
+}
 
-# Get the previous set post 
-GET api/posts?pageSize=10&previous=base64String
-
+# Get the previous post by providing 'start' cursor of the last request
+GET api/posts?pageSize=10&previous=GkDFlkfetrR
+{
+    ...
+}
 ```
 ### Comments
 ```py
@@ -101,4 +113,9 @@ DELETE api/posts/{postId}/comments/{commentGuid}
     "Key": "JWT_KEY", // 128 bit string
     "Issuer":  "Image Store"
   }
+```
+### Apply the EF Core migrations
+Open cmd and navigate to src/ImageStore.API and run the following command
+```py
+dotnet ef database update
 ```
