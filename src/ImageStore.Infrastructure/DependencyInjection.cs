@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ImageStore.Domain.Interfaces;
+using ImageStore.Infrastructure.Database.Repositories;
 
 namespace ImageStore.Infrastructure
 {
@@ -16,7 +17,11 @@ namespace ImageStore.Infrastructure
                 //options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                 options.UseSqlServer(connectionString);
             });
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IImageStorage, S3ImageStore>();
+
             return services;
         }
     }
