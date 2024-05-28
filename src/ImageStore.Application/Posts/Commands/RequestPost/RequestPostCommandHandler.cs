@@ -1,8 +1,4 @@
-﻿using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using MediatR;
-
-namespace ImageStore.Application.Posts.Commands.RequestPost
+﻿namespace ImageStore.Application.Posts.Commands.RequestPost
 {
     public class RequestPostCommandHandler : IRequestHandler<RequestPostCommand, RequestPostResultDto>
     {

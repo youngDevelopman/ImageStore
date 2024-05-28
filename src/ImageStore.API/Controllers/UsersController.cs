@@ -1,7 +1,6 @@
 ﻿using ImageStore.API.Models;
 using ImageStore.Application.Users.Commands.GenerateAccessToken;
 using ImageStore.Application.Users.Commands.RegisterUser;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImageStore.API.Controllers

@@ -1,12 +1,9 @@
 ﻿using ImageStore.Application.Configuration;
 using ImageStore.Application.Exceptions;
 using ImageStore.Application.Utils;
-using ImageStore.Domain.Interfaces;
-using MediatR;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Text;
 

@@ -1,7 +1,4 @@
 ﻿using ImageStore.Application.Exceptions;
-using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImageStore.Application.Comments.Commands.DeleteComment

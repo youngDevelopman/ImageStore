@@ -1,7 +1,4 @@
-﻿using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using ImageStore.Domain.Enums;
-using MediatR;
+﻿using ImageStore.Domain.Enums;
 using ImageStore.Application.Exceptions;
 
 namespace ImageStore.Application.Posts.Commands.CreatePost

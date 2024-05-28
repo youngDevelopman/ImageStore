@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace ImageStore.Application.Posts.Commands.RequestPost
+﻿namespace ImageStore.Application.Posts.Commands.RequestPost
 {
     public class RequestPostCommandValidator : AbstractValidator<RequestPostCommand>
     {
