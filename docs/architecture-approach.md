@@ -41,6 +41,7 @@ Steps:
 9) API will then perform an ACID transaction where the data from the corresponding RequestedPosts table goes to the Posts table and then can be marked as Successful or removed.
 
 **Pros**
+- User can use UI while the image are being processed
 - Works fine for users with a bad internet connection since a lot of operations are performed asynchronously
 - Processing and uploading of the image are performed by a separate unit(AWS Lambda) which in turn offloads the burden on API, thus increasing the throughput of the system itself.
 - Decomposed nature of the solution allows us to scale different components
