@@ -17,7 +17,8 @@ public class ExceptionMiddleware
             {
                 { typeof(ValidationException), HandleValidationException },
 
-                // All application level exceptions are handled by one method, but you can easily create your own handler for each type
+                /* All application level exceptions are handled by one method,
+                  but you can easily create your own handler for each type */
                 { typeof(CommentNotFoundException), HandleApplicationLevelException },
                 { typeof(InvalidPasswordException), HandleApplicationLevelException },
                 { typeof(PostAlreadyExistsException), HandleApplicationLevelException },
