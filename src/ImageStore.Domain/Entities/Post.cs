@@ -6,7 +6,10 @@
         public string Image { get; set; }
         // TODO: Consider using UserId
         public string Creator { get; set; }
+        public int CommentsCount { get; set; }
+        public byte[] Version { get; set; }
+
         // TODO: Consider Lazy loading
-        //public ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }
