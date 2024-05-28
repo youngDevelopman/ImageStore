@@ -11,10 +11,12 @@ namespace ImageStore.Application.Posts.Commands.RequestPost
 
             RuleFor(x => x.fileExtension)
                 .Must(fileExtension => allowedFormats.Contains(fileExtension))
+                .WithName("File extension")
                 .WithMessage($"File extension must be either {string.Join(", ", allowedFormats)}");
 
             RuleFor(x => x.File.Length)
                 .LessThan(allowedFileLength)
+                .WithName("File format")
                 .WithMessage($"Image length has to be less than {allowedFileLength}");
         }
     }
