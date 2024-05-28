@@ -2,6 +2,8 @@
 {
     public interface ICommentRepository
     {
-        Task AddCommentAsync(Comment Comment, CancellationToken cancellationToken);
+        Task<Comment> GetCommentByIdAsync(Guid commentId, CancellationToken cancellationToken);
+        Task AddCommentAsync(Comment comment, CancellationToken cancellationToken);
+        void RemoveComment(Comment comment, CancellationToken cancellationToken);
     }
 }
