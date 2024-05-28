@@ -7,11 +7,13 @@
     <InvariantGlobalization>false</InvariantGlobalization>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <UserSecretsId>c7d137a0-fe4e-4d9e-9b15-2b6f88e70415</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
+	<PackageReference Include="AWSSDK.SQS" />
   </ItemGroup>
 
   <ItemGroup>
