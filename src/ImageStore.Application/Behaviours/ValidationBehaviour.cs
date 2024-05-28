@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
-namespace ImageStore.Application.Behaviours;
+﻿namespace ImageStore.Application.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
      where TRequest : notnull

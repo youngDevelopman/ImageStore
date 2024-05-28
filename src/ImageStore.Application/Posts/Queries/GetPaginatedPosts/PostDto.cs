@@ -1,6 +1,4 @@
-﻿using ImageStore.Domain.Entities;
-
-namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
+﻿namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
 {
     public class PostDto
     {

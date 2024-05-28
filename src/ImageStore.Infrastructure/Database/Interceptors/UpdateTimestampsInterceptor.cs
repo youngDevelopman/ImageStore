@@ -1,8 +1,6 @@
-﻿using ImageStore.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System;
+
 
 namespace ImageStore.Infrastructure.Database.Interceptors
 {

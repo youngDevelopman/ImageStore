@@ -1,6 +1,4 @@
-﻿using ImageStore.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace ImageStore.Infrastructure.Database
 {

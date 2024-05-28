@@ -1,6 +1,4 @@
-﻿
-
-namespace ImageStore.Application.Exceptions
+﻿namespace ImageStore.Application.Exceptions
 {
     public class UserNotFoundException : Exception
     {

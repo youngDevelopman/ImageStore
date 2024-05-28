@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace ImageStore.Application.Comments.Commands.AddComment
+﻿namespace ImageStore.Application.Comments.Commands.AddComment
 {
     public class AddCommentCommandValidator : AbstractValidator<AddCommentCommand>
     {
