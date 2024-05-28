@@ -8,11 +8,14 @@
 
   <ItemGroup>
     <Folder Include="Comments\" />
+    <Folder Include="Posts\Commands\CreatePost\" />
     <Folder Include="Posts\Queries\" />
     <Folder Include="Users\" />
   </ItemGroup>
 
     <ItemGroup>
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+		<PackageReference Include="FluentValidation" />
 		<PackageReference Include="MediatR" />	
 	</ItemGroup>
 
