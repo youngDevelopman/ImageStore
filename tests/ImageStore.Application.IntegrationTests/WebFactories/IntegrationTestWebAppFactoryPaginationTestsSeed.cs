@@ -55,6 +55,7 @@ namespace ImageStore.Application.IntegrationTests.WebFactories
                 },
                 new Post()
                 {
+                    Id = Guid.Parse("ff21b8ea-0fa7-4d4a-8b44-08dc34c330c1"),
                     UserId = users[0].Id,
                     Caption = "Nice",
                     CommentsCount = 3,
