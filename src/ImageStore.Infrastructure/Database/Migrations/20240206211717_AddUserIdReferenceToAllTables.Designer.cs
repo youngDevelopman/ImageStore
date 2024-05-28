@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ImageStore.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240206204747_AddUserIdReferenceToAllTables")]
+    [Migration("20240206211717_AddUserIdReferenceToAllTables")]
     partial class AddUserIdReferenceToAllTables
     {
         /// <inheritdoc />
@@ -183,7 +183,7 @@ namespace ImageStore.Infrastructure.Database.Migrations
                     b.HasOne("ImageStore.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
