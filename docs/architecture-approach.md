@@ -14,7 +14,7 @@ There are generally two ways of implementing the system requirements that are gi
 3. Response is sent back to the client
 
 **Pros**
-- Fairly simple architecture, that is easy to develop, debug, and log.
+- Fairly simple architecture, that is easy to develop, debug, and test.
 - Users could perform a cancellation at any time
 - Consistency
 - Relatively fast(if compared to the async approach)
