@@ -22,7 +22,7 @@ There are generally two ways of implementing the system requirements that are gi
 **Cons**
 - The whole post creation process might take a long time and considering the poor user connection it might result in a bad user experience.
 
-## Asynchronous approach
+## Asynchronous approach (Implement approach)
 
 The following architecture facilitates the asynchronous appoach of image processing by using REST API(ASP.NET Core), Message Brokers(SQS), Remote FileStorage(S3), Serverless Computing(Lambda) and Relational Database(MS SQL)
 
@@ -39,6 +39,17 @@ Steps:
 7) When the S3 bucket has finished uploading the processed image, the corresponding event will be raised to the SQS
 8) API will listen to this queue and pick up the message
 9) API will then perform an ACID transaction where the data from the corresponding RequestedPosts table goes to the Posts table and then can be marked as Successful or removed.
+
+**Pros**
+- Works fine for users with a bad internet connection since a lot of operations are performed asynchronously
+- Processing and uploading of the image are performed by a separate unit(AWS Lambda) which in turn offloads the burden on API, thus increasing the throughput of the system itself.
+- Decomposed nature of the solution allows us to scale different components
+
+**Cons**
+- Harder to develop, test, debug, and log.
+- Since the data has to travel across different components for the processed image to be uploaded it might result in larger latency(compared to the synchronous approach), so the user might wait longer for the post to be created. 
+- Possibility of the duplicate messages being raised by S3 into SQS. https://stackoverflow.com/questions/56772299/s3-notification-creates-multiple-events
+- Possibility of the duplicate messages being while processing the message
 
 ### Dead letter messages
 
