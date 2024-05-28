@@ -12,7 +12,7 @@ namespace ImageStore.API
 
             //builder.Services.AddTransient<ExceptionHandlingMiddleware>();
             // Add services to the container.
-            builder.Services.AddApplicationDependencies();
+            builder.Services.AddApplicationDependencies(builder.Configuration);
 
             var awsCredentialsConfuguration = GetAwsCredentialsConfuguration(builder.Configuration);
             builder.Services.AddSingleton<AwsCredentialsConfuguration>(x => awsCredentialsConfuguration);

@@ -1,4 +1,5 @@
 ﻿using ImageStore.API.Models;
+using ImageStore.Application.Users.Commands.GenerateAccessToken;
 using ImageStore.Application.Users.Commands.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,9 +27,10 @@ namespace ImageStore.API.Controllers
         }
 
         [HttpPost("token")]
-        public IActionResult GenerateAccessToken()
+        public async Task<IActionResult> GenerateAccessToken(GenerateAccessTokenRequest request, CancellationToken cancellationToken)
         {
-            return View();
+            var result = await _mediator.Send(new GenerateAccessTokenCommand(request.Email, request.Password), cancellationToken);
+            return Ok(result);
         }
     }
 }
