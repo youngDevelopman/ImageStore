@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Posts\Commands\CreatePost\" />
-    <Folder Include="Posts\Queries\" />
   </ItemGroup>
 
     <ItemGroup>
