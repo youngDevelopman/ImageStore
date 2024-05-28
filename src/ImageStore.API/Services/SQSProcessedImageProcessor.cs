@@ -90,7 +90,7 @@ namespace ImageStore.API.Services
                         _logger.LogError(ex.Message);
                         await _queue.DeleteMessageAsync(_configuration.SqsUrl, messageReceipt);
                     }
-                    catch(Exception ex) when (ex is PostAlreadyExists or PostRequestNotFound)
+                    catch(Exception ex) when (ex is PostAlreadyExistsException or PostRequestNotFoundException)
                     {
                         /*
                          In this scenario we likely got duplicate messages in the queue, for example due to network partitioning, 
