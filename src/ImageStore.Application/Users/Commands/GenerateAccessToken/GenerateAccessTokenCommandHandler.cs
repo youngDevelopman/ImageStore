@@ -30,13 +30,13 @@ namespace ImageStore.Application.Users.Commands.GenerateAccessToken
             var user = await _userRepository.GetUserByEmailAsync(request.Email, cancellationToken);
             if(user == null)
             {
-                throw new UserNotFound($"User with email {request.Email} does not exist");
+                throw new UserNotFoundException($"User with email {request.Email} does not exist");
             }
 
             bool isPasswordValid = PasswordHasher.ValidatePassword(request.Password, user.PasswordSalt, user.PasswordHash);
             if (!isPasswordValid)
             {
-                throw new InvalidOperationException($"Password is not valid for the user with email {request.Email}");
+                throw new InvalidPasswordException($"Password is not valid for the user with email {request.Email}");
             }
 
             var claimsToAdd = new[]
