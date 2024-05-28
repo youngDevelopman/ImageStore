@@ -13,11 +13,10 @@
 
         }
 
-        // TODO: Complete the implementation
         public async Task<RequestPostResultDto> Handle(RequestPostCommand request, CancellationToken cancellationToken)
         {
             var fileName = $"{request.UserId}-{Guid.NewGuid()}{request.fileExtension}";
-            // TODO: Add other fields
+
             var postRequest = new PostRequest()
             {
                 UserId = request.UserId,
