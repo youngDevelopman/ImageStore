@@ -1,5 +1,6 @@
 ﻿using ImageStore.API.Models;
 using ImageStore.Application.Comments.Commands.AddComment;
+using ImageStore.Application.Comments.Commands.DeleteComment;
 using ImageStore.Application.Posts.Commands.RequestPost;
 using ImageStore.Application.Posts.Queries.GetPaginatedPosts;
 using MediatR;
@@ -21,8 +22,9 @@ namespace ImageStore.API.Controllers
             _mediator = mediator;
         }
 
-        [AllowAnonymous]
+        
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetPostsPaginated([FromQuery] GetPostsPaginatedRequest request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetPaginatedPostsQuery(request.PageSize, request.Next, request.Previous), cancellationToken);
@@ -59,6 +61,21 @@ namespace ImageStore.API.Controllers
             var result = await _mediator.Send(new AddCommentCommand(postId, Guid.Parse(userId), request.Content));
 
             return CreatedAtAction(nameof(AddPostRequest), result);
+        }
+
+        [HttpDelete("{postId:Guid}/comments/{commentId:Guid}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetPostsPaginated(Guid postId, Guid commentId, CancellationToken cancellationToken)
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return BadRequest("User Id is missing");
+            }
+
+            await _mediator.Send(new DeleteCommentCommand(Guid.Parse(userId), postId, commentId), cancellationToken);
+
+            return NoContent();
         }
     }
 }
