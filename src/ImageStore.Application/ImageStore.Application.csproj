@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Comments\" />
-    <Folder Include="Posts\Commands\CreatePost\" />
     <Folder Include="Posts\Queries\" />
     <Folder Include="Users\" />
   </ItemGroup>
