@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ImageStore.Application.Posts.Commands.RequestPost
 {
-    public class RequestPostCommandHandler : IRequestHandler<RequestPostCommand>
+    public class RequestPostCommandHandler : IRequestHandler<RequestPostCommand, RequestPostResultDto>
     {
         private readonly IImageStorage _imageStorage;
         private readonly IPostRepository _postRepository;
@@ -18,22 +18,25 @@ namespace ImageStore.Application.Posts.Commands.RequestPost
         }
 
         // TODO: Complete the implementation
-        public async Task Handle(RequestPostCommand request, CancellationToken cancellationToken)
+        public async Task<RequestPostResultDto> Handle(RequestPostCommand request, CancellationToken cancellationToken)
         {
-            await _imageStorage.UploadFileAsync(request.file, cancellationToken);
+            await _imageStorage.UploadFileAsync(request.File, cancellationToken);
 
             // TODO: Add other fields
             var postRequest = new PostRequest()
             {
                Data = new PostRequestData()
                {
-                   Caption = request.content,
+                   Caption = request.Content,
+                   Creator = request.UserId.ToString(),
                }
             };
 
             await _postRepository.AddPostRequestAsync(postRequest, cancellationToken);
 
             await _unitOfWork.CommitAsync(cancellationToken);
+
+            return new RequestPostResultDto(postRequest.Id);
         }
     }
 }
