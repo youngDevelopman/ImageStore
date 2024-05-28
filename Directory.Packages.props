@@ -4,7 +4,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="FluentValidation" Version="11.9.0" />
-	<PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageVersion Include="MediatR" Version="12.2.0" />
@@ -22,5 +23,6 @@
     <PackageVersion Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.4.0" />
     <PackageVersion Include="Amazon.Lambda.S3Events" Version="3.1.0" />
     <PackageVersion Include="Amazon.Lambda.SQSEvents" Version="2.2.0" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
   </ItemGroup>
 </Project>
