@@ -8,6 +8,10 @@ namespace ImageStore.Infrastructure.Database.Configurations
     {
         public void Configure(EntityTypeBuilder<Post> builder)
         {
+            builder
+                .Property(p => p.Version)
+                .IsRowVersion();
+
             // We probaby do not want to have captions that have too many characters
             builder.Property(x => x.Caption)
                 .IsRequired(false)
