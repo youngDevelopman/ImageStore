@@ -2,6 +2,10 @@ using ImageStore.API.Configuration;
 using ImageStore.API.Services;
 using ImageStore.Infrastructure;
 using ImageStore.Infrastructure.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 namespace ImageStore.API
 {
     public class Program
@@ -10,7 +14,6 @@ namespace ImageStore.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //builder.Services.AddTransient<ExceptionHandlingMiddleware>();
             // Add services to the container.
             builder.Services.AddApplicationDependencies(builder.Configuration);
 
@@ -21,6 +24,24 @@ namespace ImageStore.API
 
             builder.Services.Configure<ProcessedImagesQueueConfig>(builder.Configuration.GetRequiredSection("AWS:ProcessedImagesQueue"));
             builder.Services.AddHostedService<SQSProcessedImageProcessor>();
+
+            var jwtIssuer = builder.Configuration.GetRequiredSection("Jwt:Issuer").Get<string>();
+            var jwtKey = builder.Configuration.GetRequiredSection("Jwt:Key").Get<string>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+             .AddJwtBearer(options =>
+             {
+                 options.TokenValidationParameters = new TokenValidationParameters
+                 {
+                     ValidateIssuer = true,
+                     ValidateAudience = true,
+                     ValidateLifetime = true,
+                     ValidateIssuerSigningKey = true,
+                     ValidIssuer = jwtIssuer,
+                     ValidAudience = jwtIssuer,
+                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+                 };
+             });
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
