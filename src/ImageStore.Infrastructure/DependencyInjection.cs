@@ -18,7 +18,6 @@ namespace ImageStore.Infrastructure
             services.AddScoped<ISaveChangesInterceptor, UpdateTimestampsInterceptor>();
             services.AddDbContext<ApplicationDbContext>((sp, options) =>
             {
-                // TODO: Use interceptor to save createdat and updatedat fields
                 options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                 options.UseSqlServer(connectionString);
             });
