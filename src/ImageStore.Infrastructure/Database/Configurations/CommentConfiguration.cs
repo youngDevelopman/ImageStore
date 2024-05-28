@@ -13,6 +13,7 @@ namespace ImageStore.Infrastructure.Database.Configurations
                 .WithMany()
                 .HasForeignKey(x => x.UserId)
                 .IsRequired(true);
+
             // We probaby do not want to have comments that have too many characters
             builder.Property(x => x.Content)
                 .HasMaxLength(100);
