@@ -20,13 +20,13 @@ namespace ImageStore.Application.Posts.Commands.CreatePost
         {
             await using var transaction = await _unitOfWork.BeginTransactionAsync();
 
-            // TODO: Move whole logic to repository method
+            // TODO: Move whole logic to repository method??
             try
             {
                 var postRequest = await _postRepository.GetPostRequestByIdAsync(request.requestId, cancellationToken);
                 if(postRequest == null) 
-                { 
-                    // TODO: Throw Exception
+                {
+                    throw new PostRequestNotFound($"Post request with id {postRequest.Id} has not been found. ");
                 }
                 else if (postRequest.Status == PostRequestStatus.PostCreated)
                 {
