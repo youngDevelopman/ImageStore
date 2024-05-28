@@ -1,7 +1,4 @@
-﻿using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using ImageStore.Domain.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using ImageStore.Domain.Models;
 
 namespace ImageStore.Infrastructure.Database.Repositories
 {

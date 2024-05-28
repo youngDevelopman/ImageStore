@@ -1,9 +1,5 @@
 ﻿using ImageStore.Application.Exceptions;
-using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace ImageStore.Application.Comments.Commands.AddComment
 {

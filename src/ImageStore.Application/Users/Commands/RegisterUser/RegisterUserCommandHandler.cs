@@ -1,8 +1,5 @@
 ﻿using ImageStore.Application.Exceptions;
 using ImageStore.Application.Utils;
-using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using MediatR;
 
 namespace ImageStore.Application.Users.Commands.RegisterUser
 {

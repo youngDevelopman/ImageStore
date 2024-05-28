@@ -1,5 +1,4 @@
 ﻿using ImageStore.Application.Models;
-using MediatR;
 
 namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
 {

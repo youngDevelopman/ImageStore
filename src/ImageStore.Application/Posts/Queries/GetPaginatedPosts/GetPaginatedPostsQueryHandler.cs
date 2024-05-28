@@ -1,8 +1,4 @@
 ﻿using ImageStore.Application.Models;
-using ImageStore.Domain.Entities;
-using ImageStore.Domain.Interfaces;
-using ImageStore.Domain.Models;
-using MediatR;
 
 namespace ImageStore.Application.Posts.Queries.GetPaginatedPosts
 {

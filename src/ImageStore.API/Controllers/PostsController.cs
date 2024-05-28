@@ -3,7 +3,6 @@ using ImageStore.Application.Comments.Commands.AddComment;
 using ImageStore.Application.Comments.Commands.DeleteComment;
 using ImageStore.Application.Posts.Commands.RequestPost;
 using ImageStore.Application.Posts.Queries.GetPaginatedPosts;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
