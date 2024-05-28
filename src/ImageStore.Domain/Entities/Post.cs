@@ -9,7 +9,7 @@
         public int CommentsCount { get; set; }
         public byte[] Version { get; set; }
 
-        // TODO: Consider Lazy loading
+        // TODO: Consider Lazy loading and make it readonly
         public ICollection<Comment> Comments { get; set; }
     }
 }
