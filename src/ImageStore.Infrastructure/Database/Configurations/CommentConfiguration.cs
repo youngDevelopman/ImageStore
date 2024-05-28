@@ -8,6 +8,11 @@ namespace ImageStore.Infrastructure.Database.Configurations
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
+            builder
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .IsRequired(true);
             // We probaby do not want to have comments that have too many characters
             builder.Property(x => x.Content)
                 .HasMaxLength(100);
