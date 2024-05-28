@@ -1,12 +1,23 @@
-# Describing the architectural approach that was implemented
+# Describing the architectural approach that was implemented with regard to image upload
 
 There are generally two ways of implementing the system requirements that are given - using Synchronous or Asynchronous approaches.
 
 ## Synchronous approach
 
-![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/d17ba8a3-9e27-43bd-868c-309fa3d79232)
-<img src="[https://i.imgur.com/ZWnhY9T.png](https://github.com/youngDevelopman/ImageStore/assets/31933374/d17ba8a3-9e27-43bd-868c-309fa3d79232)https://github.com/youngDevelopman/ImageStore/assets/31933374/d17ba8a3-9e27-43bd-868c-309fa3d79232" width=50% height=50%>
+<img src="https://github.com/youngDevelopman/ImageStore/blob/master/docs/images/photo_2024-02-08_23-22-31.jpg" width=70% height=70%>
 
+1. User initiates a POST request to the API in order to create a new Post.
+2. API then performs the following operations sequentially in the following order:
+	- Upload original image to S3
+	- Process and upload the transformed image to S3 and return image URL
+	- Create a corresponding record in DB referencing the file created in the previous step
+3. Response is sent back to the client
 
-![Synchronous architecture](https://github.com/youngDevelopman/ImageStore/assets/31933374/b57b4744-dc03-4100-8f18-0ef854c9c0e5)
-![Synchronous architecture (1)](https://github.com/youngDevelopman/ImageStore/assets/31933374/138a2d20-d163-42f2-975c-d8bed389c983)
+**Pros**
+- Fairly simple architecture, that is easy to develop, debug, and log.
+- Users could perform a cancellation at any time
+- Consistency
+- Relatively fast(if compared to the async approach)
+  
+**Cons**
+- The whole post creation process might take a long time and considering the poor user connection it might result in a bad user experience.
