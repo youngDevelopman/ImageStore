@@ -6,6 +6,7 @@ BandLab test challendge
 - ASP.NET Core
 - AWS Lambda, S3, SQS
 - MS SQL
+- xUnit, Testcontainers, Docker
 
 ## Table of contents
 - [Back-of-the-envelope estimation](https://github.com/youngDevelopman/ImageStore/blob/master/docs/back-of-the-envelope-estimation.md)
