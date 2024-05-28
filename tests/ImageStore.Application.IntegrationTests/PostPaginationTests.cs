@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ImageStore.Application.IntegrationTests
 {
+
+    // TODO: Add more test cases
     public class PostPaginationTests : IClassFixture<IntegrationTestWebAppFactoryPaginationTestsSeed>, IDisposable
     {
         private readonly IntegrationTestWebAppFactoryPaginationTestsSeed _factory;
