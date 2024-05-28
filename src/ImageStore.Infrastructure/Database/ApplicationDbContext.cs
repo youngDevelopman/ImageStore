@@ -8,6 +8,7 @@ namespace ImageStore.Infrastructure.Database
     public class ApplicationDbContext : DbContext
     {
         public DbSet<PostRequest> PostRequests { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> ops) : base(ops)
         {
         }

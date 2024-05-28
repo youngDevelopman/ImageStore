@@ -20,19 +20,26 @@ namespace ImageStore.Application.Posts.Commands.RequestPost
         // TODO: Complete the implementation
         public async Task<RequestPostResultDto> Handle(RequestPostCommand request, CancellationToken cancellationToken)
         {
-            await _imageStorage.UploadFileAsync(request.File, cancellationToken);
-
+            var fileName = $"{request.UserId}-{Guid.NewGuid()}{request.fileExtension}";
             // TODO: Add other fields
             var postRequest = new PostRequest()
             {
-               Data = new PostRequestData()
-               {
-                   Caption = request.Content,
-                   Creator = request.UserId.ToString(),
-               }
+                Data = new PostRequestData()
+                {
+                    Caption = request.Content,
+                    Creator = request.UserId.ToString(),
+                    Image = fileName
+                }
             };
 
             await _postRepository.AddPostRequestAsync(postRequest, cancellationToken);
+
+            var metadata = new Dictionary<string, string>()
+            {
+                {"post-request-id", postRequest.Id.ToString() }
+            };
+
+            await _imageStorage.UploadFileAsync(request.File, fileName, metadata, cancellationToken);
 
             await _unitOfWork.CommitAsync(cancellationToken);
 
