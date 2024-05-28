@@ -44,7 +44,7 @@ namespace ImageStore.API.Services
                 var response = await _queue.ReceiveMessageAsync(request);
                 if (response.Messages.Any()) // Posibility of getting 0 messages
                 {
-                    string messageReceipt = default(string);
+                    string messageReceipt = default;
                     try
                     {
                         using var scope = _services.CreateScope();
