@@ -4,9 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using ImageStore.Domain.Interfaces;
 using ImageStore.Infrastructure.Database.Repositories;
 using Amazon.S3;
-using Amazon.Runtime;
-using Amazon.Runtime.Internal;
-using Microsoft.IdentityModel.Protocols;
 using ImageStore.Infrastructure.Configuration;
 
 namespace ImageStore.Infrastructure
@@ -23,7 +20,7 @@ namespace ImageStore.Infrastructure
                 options.UseSqlServer(connectionString);
             });
 
-            //services.AddDefaultAWSOptions(configuration.GetAWSOptions());
+            //services.AddDefaultAWSOptions(configuration.GetAWSOptions()); Convenient, but performs badly :(
 
             services.AddScoped<IAmazonS3>(x => 
             {
