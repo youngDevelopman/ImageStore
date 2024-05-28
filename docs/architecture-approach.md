@@ -24,9 +24,10 @@ There are generally two ways of implementing the system requirements that are gi
 
 ## Asynchronous approach (Implemented approach)
 
-The following architecture facilitates the asynchronous appoach of image processing by using REST API(ASP.NET Core), Message Brokers(SQS), Remote FileStorage(S3), Serverless Computing(Lambda) and Relational Database(MS SQL)
+The following architecture facilitates the asynchronous approach of image processing by using REST API(ASP.NET Core), Message Brokers(SQS), Remote FileStorage(S3), Serverless Computing(Lambda) and Relational Database(MS SQL)
 
-![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/eca98dc3-821b-46fb-9b5d-3f4e9689511d)
+![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/06747767-6db4-402e-86a4-83602c9d6131)
+
 
 
 Steps:
