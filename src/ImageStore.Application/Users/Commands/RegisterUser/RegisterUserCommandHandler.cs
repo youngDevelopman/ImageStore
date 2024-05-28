@@ -21,7 +21,7 @@ namespace ImageStore.Application.Users.Commands.RegisterUser
             var user = await _userRepository.GetUserByEmailAsync(request.Email, cancellationToken);
             if (user != null)
             {
-                throw new UserAlreadyExists($"User with email {user.Email} already exists");
+                throw new UserAlreadyExistsException($"User with email {user.Email} already exists");
             }
 
             (string salt, string hash) = PasswordHasher.HashPassword(request.Password);

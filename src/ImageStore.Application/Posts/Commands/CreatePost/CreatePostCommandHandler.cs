@@ -26,11 +26,11 @@ namespace ImageStore.Application.Posts.Commands.CreatePost
                 var postRequest = await _postRepository.GetPostRequestByIdAsync(request.requestId, cancellationToken);
                 if(postRequest == null) 
                 {
-                    throw new PostRequestNotFound($"Post request with id {postRequest.Id} has not been found. ");
+                    throw new PostRequestNotFoundException($"Post request with id {postRequest.Id} has not been found. ");
                 }
                 else if (postRequest.Status == PostRequestStatus.PostCreated)
                 {
-                    throw new PostAlreadyExists($"Post already exists. Post Id: {postRequest.PostId}");
+                    throw new PostAlreadyExistsException($"Post already exists. Post Id: {postRequest.PostId}");
                 }
 
                 var post = new Post()

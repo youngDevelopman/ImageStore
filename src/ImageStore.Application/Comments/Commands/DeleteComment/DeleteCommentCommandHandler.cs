@@ -21,7 +21,7 @@ namespace ImageStore.Application.Comments.Commands.DeleteComment
             var comment = await _commentRepository.GetCommentByIdAsync(request.CommentId, cancellationToken);
             if (comment == null)
             {
-                throw new CommentNotFound($"Comment with id of {request.CommentId} has not been found.");
+                throw new CommentNotFoundException($"Comment with id of {request.CommentId} has not been found.");
             }
 
             if(request.PostId !=  comment.PostId)
