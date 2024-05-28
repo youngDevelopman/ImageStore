@@ -71,3 +71,34 @@ DELETE api/posts/{postId}/comments/{commentGuid}
 
 ```
 
+## Settings
+### appSettings.Development.json
+```py
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=ImageStore;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "AWS": {
+    "Profile": "ImageStore-User",
+    "Region": "eu-central-1",
+    "ProcessedImagesQueue": {
+      "SqsUrl": "SQS-QUEUE-URL",
+      "MaxNumberOfMessages": 3,
+      "WaitTimeSeconds": 5
+    },
+    "S3Images": {
+      "Bucket": "image-store-test-app",
+      "OriginalImageFolder": "original"
+    }
+  }
+```
+### secrets.json
+```py
+"AWS": {
+    "AccessKey": "KEY",
+    "SecretKey": "SECRET_KEY"
+  },
+  "JWT": {
+    "Key": "JWT_KEY", // 128 bit string
+    "Issuer":  "Image Store"
+  }
+```
