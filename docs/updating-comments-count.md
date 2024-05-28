@@ -11,6 +11,12 @@ Thus, it was decided to store a number of comments in the *Post* table.
 
 ![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/d0241750-928f-46b5-9606-277d5c01fbec)
 
+## Lost update
+
+Imagine if two persons are trying to comment on the post at the same time. We would likely face the problem which is called lost update.
+
+![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/32a51c65-7f1f-4f32-8321-095d9630901e)
+
 ## Ways of updating comment count
 
 Now, we need to discover a way of making the comment count column synchronized with an actual amount of comments associated with a particular post
@@ -20,4 +26,11 @@ Generally, I have considered three ways of achieving this:
 - Using DB trigger
   - Generally, the problem with the records locking is the same here, but the comment count would be updated at the end of the transaction
 - Use row version and re-tries *(implemented approach)*
-   - EF Core implements optimistic concurrency, which assumes that concurrency conflicts are relatively rare. In contrast to pessimistic approaches - which lock data up-front and only then proceed to modify it - optimistic concurrency takes no locks, but arranges for the data modification to fail on save if the data has changed since it was queried. This concurrency failure is reported to the application, which deals with it accordingly, possibly by retrying the entire operation on the new data.
+   - EF Core implements optimistic concurrency, which assumes that concurrency conflicts are relatively rare. In contrast to pessimistic approaches - which lock data up-front and only then proceed to modify it - optimistic concurrency takes no locks but arranges for the data modification to fail on save if the data has changed since it was queried. This concurrency failure is reported to the application, which deals with it accordingly, possibly by retrying the entire operation on the new data.
+ 
+
+Implementation for adding a comment: https://github.com/youngDevelopman/ImageStore/blob/master/src/ImageStore.Application/Comments/Commands/AddComment/AddCommentCommandHandler.cs#L24
+
+Implementation for removing a comment: https://github.com/youngDevelopman/ImageStore/blob/master/src/ImageStore.Application/Comments/Commands/DeleteComment/DeleteCommentCommandHandler.cs
+
+
