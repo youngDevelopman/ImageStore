@@ -8,6 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{854D6D66-AE8D-4153-A93F-48977D5EF1B9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6B2DF97-22B7-48D0-A5F4-A93A9C46E731}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageStore.Domain", "src\ImageStore.Domain\ImageStore.Domain.csproj", "{AE4FF16E-6C7F-4DCC-A0AE-4A3B3E33D8BE}"
 EndProject
