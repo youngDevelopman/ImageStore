@@ -21,3 +21,31 @@ There are generally two ways of implementing the system requirements that are gi
   
 **Cons**
 - The whole post creation process might take a long time and considering the poor user connection it might result in a bad user experience.
+
+## Asynchronous approach
+
+The following architecture facilitates the asynchronous appoach of image processing by using REST API(ASP.NET Core), Message Brokers(SQS), Remote FileStorage(S3), Serverless Computing(Lambda) and Relational Database(MS SQL)
+
+![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/eca98dc3-821b-46fb-9b5d-3f4e9689511d)
+
+
+Steps:
+1) The user initiates a POST request to the API in order to create a new Post. API then performs a series of operations (2 and 3) 
+2) API adds Post Data to the RequestedPosts table that acts as an intermediate table to store the post-related data while it is being processed.
+3) API uploads an image to S3. After 2 and 3 have been performed the API will immediately return the response to the user indicating that the post creation process has been initiated.At this point user can be sure that the post will be eventually processed either successfully or not.
+4) When the S3 bucket has finished uploading the image, the corresponding event will be raised to the SQS
+5) Lambda will pick up the message, retrieve the image from S3, process it
+6) Lambda uploads the processed image to S3
+7) When the S3 bucket has finished uploading the processed image, the corresponding event will be raised to the SQS
+8) API will listen to this queue and pick up the message
+9) API will then perform an ACID transaction where the data from the corresponding RequestedPosts table goes to the Posts table and then can be marked as Successful or removed.
+
+### Dead letter messages
+
+If there are any dead-letter messages present in the dead-letter queue they might be processed by the API one another service.
+
+Reasons for dead letters to appear might be the following:
+
+- Some exception was raised in Lambda while processing the message
+- Messages in the queue have not been processed in a timely fashion
+- While processing a message from the queue API might move the message to the DLQ because it could not process it(for example, the file lacks of request-id in the metadata).
