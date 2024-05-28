@@ -1,4 +1,5 @@
 ﻿using ImageStore.API.Models;
+using ImageStore.Application.Comments.Commands.AddComment;
 using ImageStore.Application.Posts.Commands.RequestPost;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,14 @@ namespace ImageStore.API.Controllers
             using Stream imageFileStream = request.Image.OpenReadStream();
             string fileExtension = Path.GetExtension(request.Image.FileName);
             var result = await _mediator.Send(new RequestPostCommand(Guid.NewGuid(), request.Content, imageFileStream, fileExtension));
+
+            return CreatedAtAction(nameof(AddPostRequest), result);
+        }
+
+        [HttpPost("{postId:Guid}/comments")]
+        public async Task<IActionResult> AddCommentForPost(Guid postId, AddCommentRequest request, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new AddCommentCommand(postId, request.Content, Guid.NewGuid().ToString()));
 
             return CreatedAtAction(nameof(AddPostRequest), result);
         }
