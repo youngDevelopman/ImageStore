@@ -6,4 +6,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Comments\" />
+    <Folder Include="Posts\Commands\CreatePost\" />
+    <Folder Include="Posts\Queries\" />
+    <Folder Include="Users\" />
+  </ItemGroup>
+
+    <ItemGroup>
+		<PackageReference Include="MediatR" />	
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ImageStore.Domain\ImageStore.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
