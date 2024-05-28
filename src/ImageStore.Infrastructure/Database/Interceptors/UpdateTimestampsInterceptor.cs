@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System;
 
 namespace ImageStore.Infrastructure.Database.Interceptors
 {
@@ -27,14 +28,21 @@ namespace ImageStore.Infrastructure.Database.Interceptors
 
             foreach (var entry in context.ChangeTracker.Entries<BaseEntity>())
             {
+                // Remove the milliseconds. Not ideal solution!
+                DateTime dateTime = DateTime.UtcNow;
+                dateTime = new DateTime(
+                    dateTime.Ticks - (dateTime.Ticks % TimeSpan.TicksPerSecond),
+                    dateTime.Kind
+                );
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                    
+                    entry.Entity.CreatedAt = dateTime;
                 }
 
                 if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
                 {
-                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                    entry.Entity.UpdatedAt = dateTime;
                 }
             }
         }
