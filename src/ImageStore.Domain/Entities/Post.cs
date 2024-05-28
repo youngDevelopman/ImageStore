@@ -9,6 +9,6 @@
         public int CommentsCount { get; set; }
         public byte[] Version { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }
