@@ -17,6 +17,7 @@ namespace ImageStore.API.Controllers
         }
 
         [HttpPost]
+        [RequestSizeLimit(10906176)] // Set 101 MB, so we can have some space for Content field
         public async Task<IActionResult> AddPostRequest([FromForm] PostRequest request, CancellationToken cancellationToken)
         {
             using Stream imageFileStream = request.Image.OpenReadStream();
