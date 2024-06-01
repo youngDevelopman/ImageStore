@@ -113,7 +113,8 @@ DELETE api/posts/{postId}/comments/{commentGuid}
 
 You could also use Swagger to trigger the endpoints. It is available under ```/swagger``` route
 
-![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/fc49dc44-05ac-4689-85cf-511620fecb7d)
+![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/4629bf33-14ba-44ce-802a-e0b7a8cd2b3b)
+
 
 
 ## Settings
