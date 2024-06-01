@@ -9,7 +9,8 @@ Based on these requirements, the conventional approach of running aggregate func
 
 Thus, it was decided to store a number of comments in the *Post* table.
 
-![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/51f1dd51-6877-4775-8fda-1f23de6b7b5a)
+![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/85d64cab-961d-4ef8-bd13-9155ea7f1504)
+
 
 
 
@@ -17,7 +18,8 @@ Thus, it was decided to store a number of comments in the *Post* table.
 
 Imagine if two persons are trying to comment on the post at the same time. We would likely face the problem which is called lost update.
 
-![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/b66e6f59-49a2-43fc-9b52-93a7600a7992)
+![image](https://github.com/youngDevelopman/ImageStore/assets/31933374/b36a48f8-7e4c-4248-a0a9-ef35af83c779)
+
 
 
 ## Ways of updating comment count
